@@ -19,9 +19,8 @@ class Search extends Component {
   };
 
   render() {
-    console.log(this.state.searchTerms);
     return (
-      <div style={{ marginTop: 12 }}>
+      <div className="search" style={{ marginTop: 12 }}>
         <FormGroup>
           <InputGroup>
             <FormControl

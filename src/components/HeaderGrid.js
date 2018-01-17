@@ -11,17 +11,15 @@ class HeaderGrid extends Component {
   render() {
     return (
       <div className="headerGrid">
-        <div onClick={() => this.props.searchedPics([])}>
+        <div className="titleDiv" onClick={() => this.props.searchedPics([])}>
           <Link to="/" style={{ textDecoration: "none" }}>
             <Title />
           </Link>
         </div>
-        <div>
-          <AddNewPic />
-        </div>
-        <div>
-          <Search />
-        </div>
+
+        <AddNewPic />
+
+        <Search />
       </div>
     );
   }

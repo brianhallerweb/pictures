@@ -17,7 +17,7 @@ class PictureGrid extends Component {
   componentDidMount() {
     fetch("/pics")
       .then(response => response.json())
-      .then(pics => this.props.addPics(pics));
+      .then(pics => this.props.addPics(this.shuffle(pics)));
   }
 
   shuffle(array) {
@@ -42,7 +42,7 @@ class PictureGrid extends Component {
       <div>
         <div className="pictureGrid">
           {this.props.searchedPics.length === 0
-            ? this.shuffle(this.props.pics).map(pic => {
+            ? this.props.pics.map(pic => {
                 return (
                   <div>
                     <img
@@ -62,7 +62,7 @@ class PictureGrid extends Component {
                   </div>
                 );
               })
-            : this.shuffle(this.props.searchedPics).map(pic => {
+            : this.props.searchedPics.map(pic => {
                 return (
                   <div>
                     <img
