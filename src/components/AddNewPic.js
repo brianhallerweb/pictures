@@ -8,7 +8,7 @@ import {
   FormControl
 } from "react-bootstrap";
 import { connect } from "react-redux";
-import { addPics } from "../actions/actions";
+import { addPics, addErrorMessage } from "../actions/actions";
 import Dropzone from "react-dropzone";
 
 class AddNewPic extends Component {
@@ -28,14 +28,22 @@ class AddNewPic extends Component {
     fetch("/pics", {
       method: "POST",
       body: formData
-    }).then(() =>
-      fetch("/pics")
-        .then(response => response.json())
-        .then(pics => {
-          this.props.addPics(pics);
-          this.setState({ showModal: false, myImage: "" });
-        })
-    );
+    })
+      .then(response => {
+        if (response.status === 500) {
+          this.props.addErrorMessage(
+            "Your picture failed to save. Make sure your picture is a jpg or png and you have included keywords."
+          );
+        }
+      })
+      .then(() =>
+        fetch("/pics")
+          .then(response => response.json())
+          .then(pics => {
+            this.props.addPics(pics);
+            this.setState({ showModal: false, myImage: "" });
+          })
+      );
   };
 
   onDrop(files) {
@@ -137,7 +145,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addPics: e => dispatch(addPics(e))
+  addPics: e => dispatch(addPics(e)),
+  addErrorMessage: e => dispatch(addErrorMessage(e))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddNewPic);

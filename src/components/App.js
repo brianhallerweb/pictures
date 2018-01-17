@@ -4,6 +4,7 @@ import MainGrid from "./MainGrid";
 import { Route } from "react-router-dom";
 import { ConnectedRouter as Router } from "react-router-redux";
 import { history } from "../store";
+import ErrorModal from "./ErrorModal";
 
 class App extends Component {
   render() {
@@ -11,6 +12,7 @@ class App extends Component {
       <Router history={history}>
         <div>
           <Route exact path="/" component={MainGrid} />
+          <ErrorModal />
         </div>
       </Router>
     );

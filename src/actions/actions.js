@@ -11,3 +11,10 @@ export function searchedPics(pics) {
     pics
   };
 }
+
+export function addErrorMessage(message) {
+  return {
+    type: "Error Message",
+    message
+  };
+}

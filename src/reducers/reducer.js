@@ -1,6 +1,7 @@
 const initialState = {
   pics: [],
-  searchedPics: []
+  searchedPics: [],
+  error: ""
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,6 +15,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         searchedPics: action.pics
+      };
+    case "Error Message":
+      return {
+        ...state,
+        error: action.message
       };
 
     default:
