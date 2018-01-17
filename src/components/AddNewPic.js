@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap";
 import { connect } from "react-redux";
 import { addPics } from "../actions/actions";
+import Dropzone from "react-dropzone";
 
 class AddNewPic extends Component {
   constructor(props) {
@@ -30,9 +31,18 @@ class AddNewPic extends Component {
     }).then(() =>
       fetch("/pics")
         .then(response => response.json())
-        .then(pics => this.props.addPics(pics))
+        .then(pics => {
+          this.props.addPics(pics);
+          this.setState({ showModal: false, myImage: "" });
+        })
     );
   };
+
+  onDrop(files) {
+    this.setState({
+      myImage: files[0]
+    });
+  }
 
   render() {
     return (
@@ -61,10 +71,44 @@ class AddNewPic extends Component {
                 />
               </FormGroup>
 
-              <input
-                type="file"
-                onChange={e => this.setState({ myImage: e.target.files[0] })}
-              />
+              <ControlLabel>Picture</ControlLabel>
+              <Dropzone
+                onDrop={this.onDrop.bind(this)}
+                style={{
+                  borderStyle: "dashed",
+                  borderWidth: 1,
+                  borderRadius: 2,
+                  borderColor: "#bdbdbd"
+                }}
+                activeStyle={{ borderStyle: "solid", borderColor: "#d9534f" }}
+              >
+                <div
+                  style={{
+                    marginTop: 10,
+                    marginLeft: 12
+                  }}
+                >
+                  <p
+                    style={{
+                      color: "#989898"
+                    }}
+                  >
+                    Drag & drop or click to upload a picture
+                  </p>
+                  {this.state.myImage ? (
+                    <p
+                      style={{
+                        color: "#d9534f",
+                        fontWeight: "bold"
+                      }}
+                    >
+                      File selected: {this.state.myImage.name}
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </Dropzone>
             </form>
           </Modal.Body>
           <Modal.Footer>
