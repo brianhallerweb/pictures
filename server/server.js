@@ -40,7 +40,8 @@ app.post("/pics", upload.single("myImage"), function(req, res) {
     .upload_stream({ resource_type: "raw" }, function(error, result) {
       var newPic = new Pics({
         keywords: req.body.keywords,
-        filePath: result.secure_url
+        filePath: result.secure_url,
+        cloudinaryId: result.public_id
       });
       newPic.save(function(err, result) {
         if (err) {
@@ -51,6 +52,22 @@ app.post("/pics", upload.single("myImage"), function(req, res) {
       });
     })
     .end(req.file.buffer);
+});
+
+app.delete("/delete/:id", function(req, res) {
+  cloudinary.v2.uploader.destroy(
+    req.body.cloudinary_id,
+    { resource_type: "raw" },
+    function(error, result) {
+      Pics.remove({ _id: req.params.id }, function(err, result) {
+        if (err) {
+          res.status(500).json(err);
+        } else {
+          res.json(result);
+        }
+      });
+    }
+  );
 });
 
 app.use(express.static("build"));

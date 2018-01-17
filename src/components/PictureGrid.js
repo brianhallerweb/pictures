@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Picture from "./Picture";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, SplitButton, MenuItem } from "react-bootstrap";
 import { connect } from "react-redux";
 import { addPics } from "../actions/actions";
 
@@ -10,7 +10,9 @@ class PictureGrid extends Component {
     super(props);
     this.state = {
       showModal: false,
-      currentPic: ""
+      currentPic: "",
+      currentPicId: "",
+      cloudinaryId: ""
     };
   }
 
@@ -37,6 +39,25 @@ class PictureGrid extends Component {
     return array;
   }
 
+  deletePicture = () => {
+    fetch("/delete/" + this.state.currentPicId, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        cloudinary_id: this.state.cloudinaryId
+      })
+    }).then(() =>
+      fetch("/pics")
+        .then(response => response.json())
+        .then(pics => {
+          this.props.addPics(pics);
+          this.setState({ showModal: false });
+        })
+    );
+  };
+
   render() {
     return (
       <div>
@@ -44,22 +65,22 @@ class PictureGrid extends Component {
           {this.props.searchedPics.length === 0
             ? this.props.pics.map(pic => {
                 return (
-                  <div>
-                    <img
-                      onClick={() =>
-                        this.setState({
-                          showModal: !this.state.showModal,
-                          currentPic: pic.filePath
-                        })
-                      }
-                      src={pic.filePath}
-                      alt="picture"
-                      height="110px"
-                      style={{
-                        borderRadius: 2
-                      }}
-                    />
-                  </div>
+                  <img
+                    onClick={() =>
+                      this.setState({
+                        showModal: !this.state.showModal,
+                        currentPic: pic.filePath,
+                        currentPicId: pic._id,
+                        cloudinaryId: pic.cloudinaryId
+                      })
+                    }
+                    src={pic.filePath}
+                    alt="picture"
+                    height="110px"
+                    style={{
+                      borderRadius: 2
+                    }}
+                  />
                 );
               })
             : this.props.searchedPics.map(pic => {
@@ -69,7 +90,9 @@ class PictureGrid extends Component {
                       onClick={() =>
                         this.setState({
                           showModal: !this.state.showModal,
-                          currentPic: pic.filePath
+                          currentPic: pic.filePath,
+                          currentPicId: pic._id,
+                          cloudinaryId: pic.cloudinaryId
                         })
                       }
                       src={pic.filePath}
@@ -97,6 +120,17 @@ class PictureGrid extends Component {
               }}
             />
           </Modal.Body>
+          <Modal.Footer>
+            <SplitButton
+              title={"Close"}
+              pullRight
+              onClick={() => this.setState({ showModal: false })}
+            >
+              <MenuItem bsStyle="danger" onClick={() => this.deletePicture()}>
+                Delete Picture
+              </MenuItem>
+            </SplitButton>
+          </Modal.Footer>
         </Modal>
       </div>
     );
