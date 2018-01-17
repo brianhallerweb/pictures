@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-require("typeface-bad-script");
 
 class Title extends Component {
   render() {
