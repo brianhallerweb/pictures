@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import HeaderGrid from "./HeaderGrid";
 import PictureGrid from "./PictureGrid";
+import SearchMobile from "./SearchMobile";
 
 class MainGrid extends Component {
   render() {
@@ -10,6 +11,9 @@ class MainGrid extends Component {
         <header>
           <HeaderGrid />
         </header>
+        <section>
+          <SearchMobile />
+        </section>
         <main>
           <PictureGrid />
         </main>

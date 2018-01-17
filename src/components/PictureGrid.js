@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-import Picture from "./Picture";
 import { Modal, Button, SplitButton, MenuItem } from "react-bootstrap";
 import { connect } from "react-redux";
 import { addPics } from "../actions/actions";
