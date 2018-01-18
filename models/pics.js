@@ -2,7 +2,6 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var picSchema = Schema({
   keywords: { type: String, required: true },
-  filePath: { type: String, required: true },
   cloudinaryId: { type: String, required: true }
 });
 

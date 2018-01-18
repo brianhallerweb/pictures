@@ -10,6 +10,11 @@ import {
 import { connect } from "react-redux";
 import { addPics, addErrorMessage } from "../actions/actions";
 import Dropzone from "react-dropzone";
+import request from "superagent";
+
+const CLOUDINARY_UPLOAD_PRESET = "exabyfdn";
+const CLOUDINARY_UPLOAD_URL =
+  "https://api.cloudinary.com/v1_1/brianhallerweb/upload";
 
 class AddNewPic extends Component {
   constructor(props) {
@@ -21,30 +26,48 @@ class AddNewPic extends Component {
     };
   }
 
-  postPic = () => {
-    var formData = new FormData();
-    formData.append("keywords", this.state.keywords);
-    formData.append("myImage", this.state.myImage);
-    fetch("/pics", {
-      method: "POST",
-      body: formData
-    })
-      .then(response => {
-        if (response.status === 500) {
-          this.props.addErrorMessage(
-            "Your picture failed to save. Make sure your picture is a jpg or png and you have included keywords."
-          );
-        }
-      })
-      .then(() =>
-        fetch("/pics")
-          .then(response => response.json())
-          .then(pics => {
-            this.props.addPics(pics);
-            this.setState({ showModal: false, myImage: "" });
+  postPic() {
+    let upload = request
+      .post(CLOUDINARY_UPLOAD_URL)
+      .field("upload_preset", CLOUDINARY_UPLOAD_PRESET)
+      .field("file", this.state.myImage);
+
+    upload.end((err, response) => {
+      if (err) {
+        this.props.addErrorMessage(
+          "Your picture failed to save. Make sure your picture is a jpg or png and you have included keywords."
+        );
+      }
+
+      if (response.body.secure_url !== "") {
+        fetch("/pics", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            keywords: this.state.keywords,
+            cloudinaryId: response.body.public_id
           })
-      );
-  };
+        })
+          .then(response => {
+            if (response.status === 500) {
+              this.props.addErrorMessage(
+                "Your picture failed to save. Make sure your picture is a jpg or png and you have included keywords."
+              );
+            }
+          })
+          .then(() =>
+            fetch("/pics")
+              .then(response => response.json())
+              .then(pics => {
+                this.props.addPics(pics);
+                this.setState({ showModal: false, myImage: "" });
+              })
+          );
+      }
+    });
+  }
 
   onDrop(files) {
     this.setState({

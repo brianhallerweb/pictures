@@ -3,10 +3,6 @@
   margin: 0;
 }
 
-.modal-backdrop {
-  opacity: 0.9;
-}
-
 @media only screen and (min-width: 701px) {
   .mainGrid {
     display: grid;
@@ -49,17 +45,9 @@
 
   .pictureGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-columns: repeat(6, 100px);
     grid-gap: 15px;
-    justify-items: center;
-    width: 90%;
-    margin: auto;
-  }
-
-  .box img {
-    height: 100px;
-    width: 100%;
-    object-fit: cover;
+    justify-content: center;
   }
 
   .searchIcon:active {
@@ -116,17 +104,9 @@
 
   .pictureGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    grid-gap: 10px;
-    justify-items: center;
-    width: 85%;
-    margin: auto;
-  }
-
-  .box img {
-    height: 80px;
-    width: 100%;
-    object-fit: cover;
+    grid-template-columns: repeat(5, 100px);
+    grid-gap: 15px;
+    justify-content: center;
   }
 
   .searchIcon:active {
@@ -183,17 +163,9 @@
 
   .pictureGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-    grid-gap: 5px;
-    justify-items: center;
-    width: 85%;
-    margin: auto;
-  }
-
-  .box img {
-    height: 60px;
-    width: 100%;
-    object-fit: cover;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 15px;
+    justify-content: center;
   }
 
   .searchIcon:active {

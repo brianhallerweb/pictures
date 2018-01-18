@@ -3,13 +3,13 @@ import "./App.css";
 import { Modal, Button, SplitButton, MenuItem } from "react-bootstrap";
 import { connect } from "react-redux";
 import { addPics } from "../actions/actions";
+import { CloudinaryContext, Transformation, Image } from "cloudinary-react";
 
 class PictureGrid extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showModal: false,
-      currentPic: "",
       currentPicId: "",
       cloudinaryId: ""
     };
@@ -64,46 +64,39 @@ class PictureGrid extends Component {
           {this.props.searchedPics.length === 0
             ? this.props.pics.map(pic => {
                 return (
-                  <div className="box">
-                    <img
-                      onClick={() =>
-                        this.setState({
-                          showModal: !this.state.showModal,
-                          currentPic: pic.filePath,
-                          currentPicId: pic._id,
-                          cloudinaryId: pic.cloudinaryId
-                        })
-                      }
-                      src={pic.filePath}
-                      alt="picture"
-                      height="110px"
-                      style={{
-                        borderRadius: 2
-                      }}
-                    />
+                  <div
+                    onClick={() =>
+                      this.setState({
+                        showModal: !this.state.showModal,
+                        currentPicId: pic._id,
+                        cloudinaryId: pic.cloudinaryId
+                      })
+                    }
+                  >
+                    <Image
+                      cloudName="brianhallerweb"
+                      publicId={pic.cloudinaryId}
+                    >
+                      <Transformation
+                        height="100"
+                        width="100"
+                        gravity="faces"
+                        crop="fill"
+                      />
+                    </Image>
                   </div>
                 );
               })
             : this.props.searchedPics.map(pic => {
                 return (
-                  <div className="box">
-                    <img
-                      onClick={() =>
-                        this.setState({
-                          showModal: !this.state.showModal,
-                          currentPic: pic.filePath,
-                          currentPicId: pic._id,
-                          cloudinaryId: pic.cloudinaryId
-                        })
-                      }
-                      src={pic.filePath}
-                      alt="picture"
-                      height="110px"
-                      style={{
-                        borderRadius: 2
-                      }}
+                  <Image cloudName="brianhallerweb" publicId={pic.cloudinaryId}>
+                    <Transformation
+                      height="100"
+                      width="100"
+                      gravity="faces"
+                      crop="fill"
                     />
-                  </div>
+                  </Image>
                 );
               })}
         </div>
@@ -112,14 +105,12 @@ class PictureGrid extends Component {
           onHide={() => this.setState({ showModal: false })}
         >
           <Modal.Body>
-            <img
-              src={this.state.currentPic}
-              alt="picture"
-              width="100%"
-              style={{
-                borderRadius: 2
-              }}
-            />
+            <Image
+              cloudName="brianhallerweb"
+              publicId={this.state.cloudinaryId}
+            >
+              <Transformation width="400" crop="scale" />
+            </Image>
           </Modal.Body>
           <Modal.Footer>
             <SplitButton
