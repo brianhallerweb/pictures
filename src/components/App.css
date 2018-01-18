@@ -104,7 +104,7 @@
 
   .pictureGrid {
     display: grid;
-    grid-template-columns: repeat(5, 100px);
+    grid-template-columns: repeat(4, 100px);
     grid-gap: 15px;
     justify-content: center;
   }
