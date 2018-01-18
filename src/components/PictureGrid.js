@@ -121,7 +121,6 @@ class PictureGrid extends Component {
           </Modal.Body>
           <Modal.Footer>
             <SplitButton
-              bsSize="sm"
               title={"Close"}
               pullRight
               onClick={() => this.setState({ showModal: false })}
