@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+.modal-backdrop {
+  opacity: 0.9;
+}
+
 @media only screen and (min-width: 701px) {
   .mainGrid {
     display: grid;
@@ -35,7 +39,6 @@
     letter-spacing: 0.5px;
     font-size: 20px;
     color: #ecf0f1;
-    padding-bottom: 3px;
     padding-left: 5px;
     text-decoration: none;
   }
@@ -104,7 +107,6 @@
     letter-spacing: 0.5px;
     font-size: 18px;
     color: #ecf0f1;
-    padding-bottom: 3px;
     text-decoration: none;
   }
 
@@ -172,7 +174,6 @@
     letter-spacing: 0.5px;
     font-size: 18px;
     color: #ecf0f1;
-    padding-bottom: 3px;
     text-decoration: none;
   }
 
