@@ -46,9 +46,17 @@
 
   .pictureGrid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-gap: 5px;
     justify-items: center;
+    width: 90%;
+    margin: auto;
+  }
+
+  .box img {
+    height: 100px;
+    width: 100%;
+    object-fit: cover;
   }
 
   .searchIcon:active {
@@ -105,13 +113,18 @@
   }
 
   .pictureGrid {
-    grid-area: pictures;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    max-width: 90%;
-    margin: auto;
-    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    grid-gap: 5px;
     justify-items: center;
+    width: 85%;
+    margin: auto;
+  }
+
+  .box img {
+    height: 80px;
+    width: 100%;
+    object-fit: cover;
   }
 
   .searchIcon:active {
@@ -168,13 +181,18 @@
   }
 
   .pictureGrid {
-    grid-area: pictures;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    max-width: 90%;
-    margin: auto;
-    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    grid-gap: 5px;
     justify-items: center;
+    width: 85%;
+    margin: auto;
+  }
+
+  .box img {
+    height: 60px;
+    width: 100%;
+    object-fit: cover;
   }
 
   .searchIcon:active {

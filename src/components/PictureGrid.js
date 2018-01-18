@@ -64,27 +64,29 @@ class PictureGrid extends Component {
           {this.props.searchedPics.length === 0
             ? this.props.pics.map(pic => {
                 return (
-                  <img
-                    onClick={() =>
-                      this.setState({
-                        showModal: !this.state.showModal,
-                        currentPic: pic.filePath,
-                        currentPicId: pic._id,
-                        cloudinaryId: pic.cloudinaryId
-                      })
-                    }
-                    src={pic.filePath}
-                    alt="picture"
-                    height="110px"
-                    style={{
-                      borderRadius: 2
-                    }}
-                  />
+                  <div className="box">
+                    <img
+                      onClick={() =>
+                        this.setState({
+                          showModal: !this.state.showModal,
+                          currentPic: pic.filePath,
+                          currentPicId: pic._id,
+                          cloudinaryId: pic.cloudinaryId
+                        })
+                      }
+                      src={pic.filePath}
+                      alt="picture"
+                      height="110px"
+                      style={{
+                        borderRadius: 2
+                      }}
+                    />
+                  </div>
                 );
               })
             : this.props.searchedPics.map(pic => {
                 return (
-                  <div>
+                  <div className="box">
                     <img
                       onClick={() =>
                         this.setState({
