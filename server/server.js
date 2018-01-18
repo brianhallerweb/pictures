@@ -3,10 +3,9 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var Pics = require("../models/pics");
-var multer = require("multer");
+
 const path = require("path");
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+
 const cloudinary = require("cloudinary");
 
 cloudinary.config({
@@ -35,39 +34,33 @@ app.get("/search/:searchString", function(req, res) {
   });
 });
 
-app.post("/pics", upload.single("myImage"), function(req, res) {
-  cloudinary.v2.uploader
-    .upload_stream({ resource_type: "raw" }, function(error, result) {
-      var newPic = new Pics({
-        keywords: req.body.keywords,
-        filePath: result.secure_url,
-        cloudinaryId: result.public_id
-      });
-      newPic.save(function(err, result) {
-        if (err) {
-          res.status(500).json(err);
-        } else {
-          res.json(result);
-        }
-      });
-    })
-    .end(req.file.buffer);
+app.post("/pics", function(req, res) {
+  var newPic = new Pics({
+    keywords: req.body.keywords,
+    cloudinaryId: req.body.cloudinaryId
+  });
+  newPic.save(function(err, result) {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      res.json(result);
+    }
+  });
 });
 
 app.delete("/delete/:id", function(req, res) {
-  cloudinary.v2.uploader.destroy(
-    req.body.cloudinary_id,
-    { resource_type: "raw" },
-    function(error, result) {
-      Pics.remove({ _id: req.params.id }, function(err, result) {
-        if (err) {
-          res.status(500).json(err);
-        } else {
-          res.json(result);
-        }
-      });
-    }
-  );
+  cloudinary.v2.uploader.destroy(req.body.cloudinary_id, function(
+    error,
+    result
+  ) {
+    Pics.remove({ _id: req.params.id }, function(err, result) {
+      if (err) {
+        res.status(500).json(err);
+      } else {
+        res.json(result);
+      }
+    });
+  });
 });
 
 app.use(express.static("build"));
