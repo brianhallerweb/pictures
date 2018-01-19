@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Modal, Button, SplitButton, MenuItem } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 import { connect } from "react-redux";
 import { addPics } from "../actions/actions";
 import { CloudinaryContext, Transformation, Image } from "cloudinary-react";
@@ -11,8 +11,14 @@ class PictureGrid extends Component {
     this.state = {
       showModal: false,
       currentPicId: "",
-      cloudinaryId: ""
+      cloudinaryId: "",
+      height: "",
+      modalClassName: "noShow"
     };
+  }
+
+  componentWillMount() {
+    this.setState({ height: window.innerHeight });
   }
 
   componentDidMount() {
@@ -67,7 +73,7 @@ class PictureGrid extends Component {
                   <div
                     onClick={() =>
                       this.setState({
-                        showModal: !this.state.showModal,
+                        modalClassName: "show",
                         currentPicId: pic._id,
                         cloudinaryId: pic.cloudinaryId
                       })
@@ -89,41 +95,63 @@ class PictureGrid extends Component {
               })
             : this.props.searchedPics.map(pic => {
                 return (
-                  <Image cloudName="brianhallerweb" publicId={pic.cloudinaryId}>
-                    <Transformation
-                      height="100"
-                      width="100"
-                      gravity="faces"
-                      crop="fill"
-                    />
-                  </Image>
+                  <div
+                    onClick={() =>
+                      this.setState({
+                        modalClassName: "show",
+                        currentPicId: pic._id,
+                        cloudinaryId: pic.cloudinaryId
+                      })
+                    }
+                  >
+                    <Image
+                      cloudName="brianhallerweb"
+                      publicId={pic.cloudinaryId}
+                    >
+                      <Transformation
+                        height="100"
+                        width="100"
+                        gravity="faces"
+                        crop="fill"
+                      />
+                    </Image>
+                  </div>
                 );
               })}
         </div>
-        <Modal
-          show={this.state.showModal}
-          onHide={() => this.setState({ showModal: false })}
-        >
-          <Modal.Body>
-            <Image
-              cloudName="brianhallerweb"
-              publicId={this.state.cloudinaryId}
-            >
-              <Transformation width="400" crop="scale" />
-            </Image>
-          </Modal.Body>
-          <Modal.Footer>
-            <SplitButton
-              title={"Close"}
-              pullRight
-              onClick={() => this.setState({ showModal: false })}
-            >
-              <MenuItem bsStyle="danger" onClick={() => this.deletePicture()}>
-                Delete Picture
-              </MenuItem>
-            </SplitButton>
-          </Modal.Footer>
-        </Modal>
+
+        <div className={this.state.modalClassName}>
+          <div className="modalHeader">
+            <Glyphicon
+              onClick={() =>
+                this.setState({
+                  modalClassName: "noShow"
+                })
+              }
+              glyph="glyphicon glyphicon-remove-circle"
+              style={{ color: "white", fontSize: 25 }}
+            />
+            <div>
+              <Glyphicon
+                onClick={() => {
+                  this.deletePicture();
+                  this.setState({
+                    modalClassName: "noShow"
+                  });
+                }}
+                glyph="glyphicon glyphicon-trash"
+                style={{ color: "white", fontSize: 20, marginTop: 10 }}
+              />
+            </div>
+          </div>
+          <Image cloudName="brianhallerweb" publicId={this.state.cloudinaryId}>
+            <Transformation
+              height={this.state.height}
+              width="auto"
+              crop="fill"
+            />
+          </Image>
+        </div>
       </div>
     );
   }

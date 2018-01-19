@@ -17,7 +17,7 @@ class HeaderGrid extends Component {
             marginTop: 3,
             marginBottom: 3,
             marginRight: 10,
-            fontSize: 10
+            fontSize: 11
           }}
         >
           Created by:{" "}
