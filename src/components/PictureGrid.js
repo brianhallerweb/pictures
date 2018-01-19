@@ -7,32 +7,10 @@ import { Link } from "react-router-dom";
 import { CloudinaryContext, Transformation, Image } from "cloudinary-react";
 
 class PictureGrid extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   componentDidMount() {
     fetch("/pics")
       .then(response => response.json())
-      .then(pics => this.props.addPics(this.shuffle(pics)));
-  }
-
-  shuffle(array) {
-    var currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
-
-    while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-
-    return array;
+      .then(pics => this.props.addPics(pics));
   }
 
   render() {

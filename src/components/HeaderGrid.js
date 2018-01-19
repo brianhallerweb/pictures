@@ -3,6 +3,7 @@ import "./App.css";
 import { Link } from "react-router-dom";
 import Title from "./Title";
 import AddNewPic from "./AddNewPic";
+import Shuffle from "./Shuffle";
 import Search from "./Search";
 import { connect } from "react-redux";
 import { searchedPics } from "../actions/actions";
@@ -31,7 +32,7 @@ class HeaderGrid extends Component {
           </div>
 
           <AddNewPic />
-
+          <Shuffle />
           <Search />
         </div>
       </div>

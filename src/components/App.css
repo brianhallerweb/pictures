@@ -41,7 +41,7 @@
 
   .headerGrid {
     display: grid;
-    grid-template-columns: 2fr 70px 1fr;
+    grid-template-columns: 2fr 70px 70px 1fr;
     justify-items: start;
     align-items: center;
     background-color: rgba(44, 62, 80, 0.85);
@@ -95,7 +95,7 @@
 
   .headerGrid {
     display: grid;
-    grid-template-columns: 10fr 1fr;
+    grid-template-columns: 10fr 1fr 1fr;
     grid-template-rows: auto;
     justify-items: start;
     align-items: center;
@@ -154,7 +154,7 @@
 
   .headerGrid {
     display: grid;
-    grid-template-columns: 10fr 1fr;
+    grid-template-columns: 10fr 40px 20px;
     grid-template-rows: auto;
     justify-items: start;
     align-items: center;

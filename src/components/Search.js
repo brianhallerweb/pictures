@@ -5,19 +5,11 @@ import { connect } from "react-redux";
 import { searchedPics } from "../actions/actions";
 
 class Search extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchTerms: ""
-    };
-  }
-
   searchPics = () => {
     fetch("/search/" + this.state.searchTerms)
       .then(response => response.json())
       .then(pics => {
         this.props.searchedPics(pics);
-        this.setState({ searchTerms: "" });
       });
   };
 
@@ -29,7 +21,6 @@ class Search extends Component {
             <FormControl
               type="text"
               placeholder="Search by keyword"
-              value={this.state.searchTerms}
               onChange={e => this.setState({ searchTerms: e.target.value })}
             />
 

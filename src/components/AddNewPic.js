@@ -5,7 +5,9 @@ import {
   Button,
   FormGroup,
   ControlLabel,
-  FormControl
+  FormControl,
+  Tooltip,
+  OverlayTrigger
 } from "react-bootstrap";
 import { connect } from "react-redux";
 import { addPics, addErrorMessage } from "../actions/actions";
@@ -76,16 +78,28 @@ class AddNewPic extends Component {
   }
 
   render() {
+    const tooltip = (
+      <Tooltip placement="bottom" className="in" id="tooltip-bottom">
+        add new
+      </Tooltip>
+    );
     return (
       <div>
         <div
           onClick={() => this.setState({ showModal: !this.state.showModal })}
         >
-          <i
-            className="fa fa-plus-square-o"
-            aria-hidden="true"
-            style={{ fontSize: 30, color: "#E0E0E0" }}
-          />
+          <OverlayTrigger
+            placement="bottom"
+            overlay={tooltip}
+            delayShow={300}
+            delayHide={150}
+          >
+            <i
+              className="fa fa-plus-square-o"
+              aria-hidden="true"
+              style={{ fontSize: 30, color: "#E0E0E0" }}
+            />
+          </OverlayTrigger>
         </div>
         <Modal
           show={this.state.showModal}
