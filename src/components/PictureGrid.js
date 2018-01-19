@@ -13,12 +13,16 @@ class PictureGrid extends Component {
       currentPicId: "",
       cloudinaryId: "",
       height: "",
+      width: "",
       modalClassName: "noShow"
     };
   }
 
   componentWillMount() {
-    this.setState({ height: window.innerHeight });
+    this.setState({
+      height: window.innerHeight,
+      width: window.innerWidth
+    });
   }
 
   componentDidMount() {
@@ -140,15 +144,15 @@ class PictureGrid extends Component {
                   });
                 }}
                 glyph="glyphicon glyphicon-trash"
-                style={{ color: "white", fontSize: 20, marginTop: 10 }}
+                style={{ color: "white", fontSize: 20, marginTop: 30 }}
               />
             </div>
           </div>
           <Image cloudName="brianhallerweb" publicId={this.state.cloudinaryId}>
             <Transformation
               height={this.state.height}
-              width="auto"
-              crop="fill"
+              width={this.state.width}
+              crop="fit"
             />
           </Image>
         </div>
