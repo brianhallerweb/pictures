@@ -4,7 +4,7 @@ import { Glyphicon } from "react-bootstrap";
 import { connect } from "react-redux";
 import { addPics, getMongoId, getCloudinaryId } from "../actions/actions";
 import { Link } from "react-router-dom";
-import { CloudinaryContext, Transformation, Image } from "cloudinary-react";
+import { Transformation, Image } from "cloudinary-react";
 
 class PictureGrid extends Component {
   componentDidMount() {

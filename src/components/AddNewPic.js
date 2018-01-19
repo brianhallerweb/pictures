@@ -71,9 +71,13 @@ class AddNewPic extends Component {
     });
   }
 
-  onDrop(files) {
+  onDrop(accepted, rejected) {
+    if (rejected.length !== 0) {
+      this.props.addErrorMessage("Your picture must be a jpg or png");
+    }
+
     this.setState({
-      myImage: files[0]
+      myImage: accepted[0]
     });
   }
 
@@ -119,6 +123,7 @@ class AddNewPic extends Component {
               <ControlLabel>Picture</ControlLabel>
               <Dropzone
                 onDrop={this.onDrop.bind(this)}
+                accept="image/jpeg, image/png"
                 style={{
                   borderStyle: "dashed",
                   borderWidth: 1,
@@ -138,7 +143,8 @@ class AddNewPic extends Component {
                       color: "#989898"
                     }}
                   >
-                    Drag & drop or click to upload a picture
+                    Drag & drop or click to upload a picture (single jpg/png
+                    files only)
                   </p>
                   {this.state.myImage ? (
                     <p

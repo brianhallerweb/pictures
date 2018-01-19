@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
-import Title from "./Title";
-import AddNewPic from "./AddNewPic";
-import Search from "./Search";
 import { Glyphicon } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { addPics } from "../actions/actions";
-import { CloudinaryContext, Transformation, Image } from "cloudinary-react";
+import { addPics, addErrorMessage } from "../actions/actions";
+import { Transformation, Image } from "cloudinary-react";
 
 class FullPicture extends Component {
   constructor(props) {
@@ -33,14 +30,18 @@ class FullPicture extends Component {
       body: JSON.stringify({
         cloudinary_id: this.props.cloudinaryId
       })
-    }).then(() =>
-      fetch("/pics")
-        .then(response => response.json())
-        .then(pics => {
-          this.props.addPics(pics);
-          this.props.history.push("/");
-        })
-    );
+    }).then(response => {
+      if (response.status === 500) {
+        this.props.addErrorMessage("Your picture failed to delete. Try again.");
+      } else {
+        fetch("/pics")
+          .then(response => response.json())
+          .then(pics => {
+            this.props.history.push("/");
+            this.props.addPics(pics);
+          });
+      }
+    });
   };
 
   render() {
@@ -77,7 +78,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addPics: e => dispatch(addPics(e))
+  addPics: e => dispatch(addPics(e)),
+  addErrorMessage: e => dispatch(addErrorMessage(e))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FullPicture);
