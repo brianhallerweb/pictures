@@ -46,7 +46,7 @@ class Shuffle extends Component {
             glyph="glyphicon glyphicon-random"
             style={{
               fontSize: 20,
-              color: "white"
+              color: "#E0E0E0"
             }}
           />
         </OverlayTrigger>
