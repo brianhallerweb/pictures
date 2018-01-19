@@ -9,9 +9,7 @@ import { CloudinaryContext, Transformation, Image } from "cloudinary-react";
 class PictureGrid extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      modalClassName: "noShow"
-    };
+    this.state = {};
   }
 
   componentDidMount() {
@@ -40,61 +38,74 @@ class PictureGrid extends Component {
   render() {
     return (
       <div>
-        <div className="pictureGrid">
-          {this.props.searchedPics.length === 0
-            ? this.props.pics.map(pic => {
-                return (
-                  <Link
-                    to={`/full/${pic.cloudinaryId}`}
-                    onClick={() => {
-                      this.setState({
-                        modalClassName: "show"
-                      });
-                      this.props.getMongoId(pic._id);
-                      this.props.getCloudinaryId(pic.cloudinaryId);
-                    }}
-                  >
-                    <Image
-                      cloudName="brianhallerweb"
-                      publicId={pic.cloudinaryId}
-                    >
-                      <Transformation
-                        height="100"
-                        width="100"
-                        gravity="faces"
-                        crop="fill"
-                      />
-                    </Image>
-                  </Link>
-                );
-              })
-            : this.props.searchedPics.map(pic => {
-                return (
-                  <Link
-                    to={`/full/${pic.cloudinaryId}`}
-                    onClick={() => {
-                      this.setState({
-                        modalClassName: "show"
-                      });
-                      this.props.getMongoId(pic._id);
-                      this.props.getCloudinaryId(pic.cloudinaryId);
-                    }}
-                  >
-                    <Image
-                      cloudName="brianhallerweb"
-                      publicId={pic.cloudinaryId}
-                    >
-                      <Transformation
-                        height="100"
-                        width="100"
-                        gravity="faces"
-                        crop="fill"
-                      />
-                    </Image>
-                  </Link>
-                );
-              })}
-        </div>
+        {this.props.searchedPics.length === 0 ? (
+          <div className="pictureGrid">
+            {this.props.pics.map(pic => {
+              return (
+                <Link
+                  to={`/${pic.cloudinaryId}`}
+                  onClick={() => {
+                    this.setState({
+                      modalClassName: "show"
+                    });
+                    this.props.getMongoId(pic._id);
+                    this.props.getCloudinaryId(pic.cloudinaryId);
+                  }}
+                >
+                  <Image cloudName="brianhallerweb" publicId={pic.cloudinaryId}>
+                    <Transformation
+                      height="100"
+                      width="100"
+                      gravity="faces"
+                      crop="fill"
+                    />
+                  </Image>
+                </Link>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="pictureGrid">
+            <Link
+              to="/"
+              style={{ textDecoration: "none" }}
+              onClick={() => this.props.searchedPics([])}
+            >
+              <Glyphicon
+                glyph="glyphicon glyphicon-arrow-left"
+                style={{
+                  marginTop: 35,
+                  marginLeft: 35,
+                  fontSize: 25,
+                  color: "black"
+                }}
+              />
+            </Link>
+            {this.props.searchedPics.map(pic => {
+              return (
+                <Link
+                  to={`/${pic.cloudinaryId}`}
+                  onClick={() => {
+                    this.setState({
+                      modalClassName: "show"
+                    });
+                    this.props.getMongoId(pic._id);
+                    this.props.getCloudinaryId(pic.cloudinaryId);
+                  }}
+                >
+                  <Image cloudName="brianhallerweb" publicId={pic.cloudinaryId}>
+                    <Transformation
+                      height="100"
+                      width="100"
+                      gravity="faces"
+                      crop="fill"
+                    />
+                  </Image>
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   }

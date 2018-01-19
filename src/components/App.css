@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+.noShow {
+  display: none;
+}
+
 .fullScreen {
   display: grid;
   grid-template-columns: 1fr;

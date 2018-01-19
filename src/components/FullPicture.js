@@ -13,18 +13,9 @@ class FullPicture extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      height: "",
-      width: "",
       fullScreenPicId: "",
       id: props.match.params.id
     };
-  }
-
-  componentWillMount() {
-    this.setState({
-      height: window.innerHeight,
-      width: window.innerWidth
-    });
   }
 
   componentDidMount() {
@@ -73,11 +64,7 @@ class FullPicture extends Component {
           </div>
         </div>
         <Image cloudName="brianhallerweb" publicId={this.state.fullScreenPicId}>
-          <Transformation
-            height={this.state.height}
-            width={this.state.weight}
-            crop="limit"
-          />
+          <Transformation crop="fit" />
         </Image>
       </div>
     );
