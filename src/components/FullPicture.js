@@ -14,7 +14,9 @@ class FullPicture extends Component {
     super(props);
     this.state = {
       height: "",
-      width: ""
+      width: "",
+      fullScreenPicId: "",
+      id: props.match.params.id
     };
   }
 
@@ -23,6 +25,12 @@ class FullPicture extends Component {
       height: window.innerHeight,
       width: window.innerWidth
     });
+  }
+
+  componentDidMount() {
+    fetch("/pic/" + this.state.id)
+      .then(response => response.json())
+      .then(id => this.setState({ fullScreenPicId: id.cloudinaryId }));
   }
 
   deletePicture = () => {
@@ -39,15 +47,15 @@ class FullPicture extends Component {
         .then(response => response.json())
         .then(pics => {
           this.props.addPics(pics);
-          this.setState({ showModal: false });
+          this.props.history.push("/");
         })
     );
   };
 
   render() {
     return (
-      <div className="show">
-        <div className="modalHeader">
+      <div className="fullScreen">
+        <div className="fullScreenHeader">
           <Link to={"/"}>
             <Glyphicon
               glyph="glyphicon glyphicon-remove-circle"
@@ -64,11 +72,11 @@ class FullPicture extends Component {
             />
           </div>
         </div>
-        <Image cloudName="brianhallerweb" publicId={this.props.cloudinaryId}>
+        <Image cloudName="brianhallerweb" publicId={this.state.fullScreenPicId}>
           <Transformation
             height={this.state.height}
-            width={this.state.width}
-            crop="fit"
+            width={this.state.weight}
+            crop="limit"
           />
         </Image>
       </div>

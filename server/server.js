@@ -26,6 +26,12 @@ app.get("/pics", function(req, res) {
   });
 });
 
+app.get("/pic/:id", function(req, res) {
+  Pics.findOne({ cloudinaryId: req.params.id }, function(err, pic) {
+    res.json(pic);
+  });
+});
+
 app.get("/search/:searchString", function(req, res) {
   Pics.find({
     $text: { $search: req.params.searchString }

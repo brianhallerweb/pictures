@@ -3,27 +3,20 @@
   margin: 0;
 }
 
-.noShow {
-  display: none;
-}
-
-.show {
-  text-align: center;
-  margin: auto;
-  height: 100%;
-  left: 0;
-  top: 0;
-  width: 100%;
-  position: absolute;
+.fullScreen {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 100vh;
+  justify-items: center;
+  align-items: center;
   background-color: black;
-  z-index: 100;
 }
 
-.modalHeader {
+.fullScreenHeader {
   z-index: 1000;
   position: absolute;
-  margin-left: 10px;
-  margin-top: 10px;
+  margin-left: 15px;
+  margin-top: 18px;
 }
 
 @media only screen and (min-width: 701px) {

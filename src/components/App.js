@@ -13,7 +13,7 @@ class App extends Component {
       <Router history={history}>
         <div>
           <Route exact path="/" component={MainGrid} />
-          <Route path="/full" component={FullPicture} />
+          <Route path="/full/:id" component={FullPicture} />
           <ErrorModal />
         </div>
       </Router>
