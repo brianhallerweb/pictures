@@ -1,6 +1,8 @@
 const initialState = {
   pics: [],
   searchedPics: [],
+  cloudinaryId: "",
+  mongoId: "",
   error: ""
 };
 
@@ -20,6 +22,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.message
+      };
+    case "Cloudinary ID":
+      return {
+        ...state,
+        cloudinaryId: action.id
+      };
+    case "Mongo ID":
+      return {
+        ...state,
+        mongoId: action.id
       };
 
     default:

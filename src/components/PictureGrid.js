@@ -2,27 +2,16 @@ import React, { Component } from "react";
 import "./App.css";
 import { Glyphicon } from "react-bootstrap";
 import { connect } from "react-redux";
-import { addPics } from "../actions/actions";
+import { addPics, getMongoId, getCloudinaryId } from "../actions/actions";
+import { Link } from "react-router-dom";
 import { CloudinaryContext, Transformation, Image } from "cloudinary-react";
 
 class PictureGrid extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false,
-      currentPicId: "",
-      cloudinaryId: "",
-      height: "",
-      width: "",
       modalClassName: "noShow"
     };
-  }
-
-  componentWillMount() {
-    this.setState({
-      height: window.innerHeight,
-      width: window.innerWidth
-    });
   }
 
   componentDidMount() {
@@ -48,25 +37,6 @@ class PictureGrid extends Component {
     return array;
   }
 
-  deletePicture = () => {
-    fetch("/delete/" + this.state.currentPicId, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        cloudinary_id: this.state.cloudinaryId
-      })
-    }).then(() =>
-      fetch("/pics")
-        .then(response => response.json())
-        .then(pics => {
-          this.props.addPics(pics);
-          this.setState({ showModal: false });
-        })
-    );
-  };
-
   render() {
     return (
       <div>
@@ -74,14 +44,15 @@ class PictureGrid extends Component {
           {this.props.searchedPics.length === 0
             ? this.props.pics.map(pic => {
                 return (
-                  <div
-                    onClick={() =>
+                  <Link
+                    to={`/full/${pic.cloudinaryId}`}
+                    onClick={() => {
                       this.setState({
-                        modalClassName: "show",
-                        currentPicId: pic._id,
-                        cloudinaryId: pic.cloudinaryId
-                      })
-                    }
+                        modalClassName: "show"
+                      });
+                      this.props.getMongoId(pic._id);
+                      this.props.getCloudinaryId(pic.cloudinaryId);
+                    }}
                   >
                     <Image
                       cloudName="brianhallerweb"
@@ -94,19 +65,20 @@ class PictureGrid extends Component {
                         crop="fill"
                       />
                     </Image>
-                  </div>
+                  </Link>
                 );
               })
             : this.props.searchedPics.map(pic => {
                 return (
-                  <div
-                    onClick={() =>
+                  <Link
+                    to={`/full/${pic.cloudinaryId}`}
+                    onClick={() => {
                       this.setState({
-                        modalClassName: "show",
-                        currentPicId: pic._id,
-                        cloudinaryId: pic.cloudinaryId
-                      })
-                    }
+                        modalClassName: "show"
+                      });
+                      this.props.getMongoId(pic._id);
+                      this.props.getCloudinaryId(pic.cloudinaryId);
+                    }}
                   >
                     <Image
                       cloudName="brianhallerweb"
@@ -119,42 +91,9 @@ class PictureGrid extends Component {
                         crop="fill"
                       />
                     </Image>
-                  </div>
+                  </Link>
                 );
               })}
-        </div>
-
-        <div className={this.state.modalClassName}>
-          <div className="modalHeader">
-            <Glyphicon
-              onClick={() =>
-                this.setState({
-                  modalClassName: "noShow"
-                })
-              }
-              glyph="glyphicon glyphicon-remove-circle"
-              style={{ color: "white", fontSize: 25 }}
-            />
-            <div>
-              <Glyphicon
-                onClick={() => {
-                  this.deletePicture();
-                  this.setState({
-                    modalClassName: "noShow"
-                  });
-                }}
-                glyph="glyphicon glyphicon-trash"
-                style={{ color: "white", fontSize: 20, marginTop: 30 }}
-              />
-            </div>
-          </div>
-          <Image cloudName="brianhallerweb" publicId={this.state.cloudinaryId}>
-            <Transformation
-              height={this.state.height}
-              width={this.state.width}
-              crop="fit"
-            />
-          </Image>
         </div>
       </div>
     );
@@ -163,11 +102,15 @@ class PictureGrid extends Component {
 
 const mapStateToProps = state => ({
   pics: state.reducer.pics,
-  searchedPics: state.reducer.searchedPics
+  searchedPics: state.reducer.searchedPics,
+  cloudinaryId: state.reducer.cloudinaryId,
+  mongoId: state.reducer.mongoId
 });
 
 const mapDispatchToProps = dispatch => ({
-  addPics: e => dispatch(addPics(e))
+  addPics: e => dispatch(addPics(e)),
+  getCloudinaryId: e => dispatch(getCloudinaryId(e)),
+  getMongoId: e => dispatch(getMongoId(e))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PictureGrid);

@@ -18,3 +18,17 @@ export function addErrorMessage(message) {
     message
   };
 }
+
+export function getCloudinaryId(id) {
+  return {
+    type: "Cloudinary ID",
+    id
+  };
+}
+
+export function getMongoId(id) {
+  return {
+    type: "Mongo ID",
+    id
+  };
+}
