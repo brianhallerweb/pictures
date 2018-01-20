@@ -105,10 +105,7 @@ class AddNewPic extends Component {
             />
           </OverlayTrigger>
         </div>
-        <Modal
-          show={this.state.showModal}
-          onHide={() => this.setState({ showModal: false })}
-        >
+        <Modal show={this.state.showModal}>
           <Modal.Body>
             <form>
               <FormGroup>

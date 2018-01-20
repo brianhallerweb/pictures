@@ -2,14 +2,18 @@ import React, { Component } from "react";
 import "./App.css";
 import { FormGroup, FormControl, Glyphicon, InputGroup } from "react-bootstrap";
 import { connect } from "react-redux";
-import { searchedPics } from "../actions/actions";
+import { searchedPics, addErrorMessage } from "../actions/actions";
 
 class Search extends Component {
   searchPics = () => {
     fetch("/search/" + this.state.searchTerms)
       .then(response => response.json())
       .then(pics => {
-        this.props.searchedPics(pics);
+        if (pics.length === 0) {
+          this.props.addErrorMessage("No search results");
+        } else {
+          this.props.searchedPics(pics);
+        }
       });
   };
 
@@ -40,7 +44,8 @@ class Search extends Component {
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
-  searchedPics: e => dispatch(searchedPics(e))
+  searchedPics: e => dispatch(searchedPics(e)),
+  addErrorMessage: e => dispatch(addErrorMessage(e))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
