@@ -7,6 +7,10 @@
   display: none;
 }
 
+.pictureGrid img:hover {
+  opacity: 0.8;
+}
+
 .fullScreen {
   display: grid;
   grid-template-columns: 1fr;
