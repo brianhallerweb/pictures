@@ -99,9 +99,9 @@ class AddNewPic extends Component {
             delayHide={150}
           >
             <i
-              className="fa fa-plus-square-o"
+              className="fa fa-plus"
               aria-hidden="true"
-              style={{ fontSize: 30, color: "#757575" }}
+              style={{ fontSize: 25, color: "#757575" }}
             />
           </OverlayTrigger>
         </div>
@@ -125,7 +125,8 @@ class AddNewPic extends Component {
                   borderStyle: "dashed",
                   borderWidth: 1,
                   borderRadius: 2,
-                  borderColor: "#bdbdbd"
+                  borderColor: "#bdbdbd",
+                  height: "100px"
                 }}
                 activeStyle={{ borderStyle: "solid", borderColor: "#d9534f" }}
               >
