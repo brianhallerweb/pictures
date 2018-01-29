@@ -101,7 +101,7 @@ class AddNewPic extends Component {
             <i
               className="fa fa-plus-square-o"
               aria-hidden="true"
-              style={{ fontSize: 30, color: "#E0E0E0" }}
+              style={{ fontSize: 30, color: "#757575" }}
             />
           </OverlayTrigger>
         </div>

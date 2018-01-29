@@ -32,8 +32,8 @@ class PictureGrid extends Component {
                 >
                   <Image cloudName="brianhallerweb" publicId={pic.cloudinaryId}>
                     <Transformation
-                      height="100"
-                      width="100"
+                      height="200"
+                      width="200"
                       gravity="faces"
                       crop="fill"
                     />
@@ -73,8 +73,8 @@ class PictureGrid extends Component {
                 >
                   <Image cloudName="brianhallerweb" publicId={pic.cloudinaryId}>
                     <Transformation
-                      height="100"
-                      width="100"
+                      height="200"
+                      width="200"
                       gravity="faces"
                       crop="fill"
                     />
