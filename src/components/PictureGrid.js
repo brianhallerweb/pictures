@@ -52,10 +52,10 @@ class PictureGrid extends Component {
               <Glyphicon
                 glyph="glyphicon glyphicon-arrow-left"
                 style={{
-                  marginTop: 35,
-                  marginLeft: 35,
-                  fontSize: 25,
-                  color: "black"
+                  marginTop: 75,
+                  marginLeft: 75,
+                  fontSize: 30,
+                  color: "#616161"
                 }}
               />
             </Link>
