@@ -36,7 +36,7 @@
   margin-top: 18px;
 }
 
-@media only screen and (min-width: 1101px) {
+@media only screen and (min-width: 1301px) {
   .mainGrid {
     display: grid;
     grid-template-columns: 1fr;
@@ -91,7 +91,62 @@
   }
 }
 
-@media only screen and (min-width: 901px) {
+@media only screen and (min-width: 1101px) and (max-width: 1300px) {
+  .mainGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    justify-items: center;
+    align-items: center;
+    background-color: #f5f5f5;
+  }
+
+  .headerGrid {
+    display: grid;
+    grid-template-columns: 2fr 70px 70px 1fr;
+    justify-items: start;
+    align-items: center;
+    padding: 10px 30px;
+    margin: 0px 10px 30px 0px;
+    width: 100%;
+    box-shadow: 1px 4px 6px #bdbdbd;
+    background-color: #fff;
+  }
+
+  .searchMobile {
+    display: none;
+  }
+
+  .title {
+    font-family: "ABeeZee", sans-serif;
+    font-weight: "100";
+    letter-spacing: 0.5px;
+    font-size: 20px;
+    color: #212121;
+    padding-left: 5px;
+    text-decoration: none;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .pictureGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 200px);
+    max-width: 900px;
+    margin: auto;
+    grid-gap: 15px;
+    justify-content: center;
+  }
+
+  .searchIcon:active {
+    color: black;
+    font-weight: bolder;
+  }
+}
+
+@media only screen and (max-width: 1100px) and (min-width: 901px) {
   .mainGrid {
     display: grid;
     grid-template-columns: 100%;
@@ -146,7 +201,7 @@
   }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 900px) and (min-width: 701px) {
   .mainGrid {
     display: grid;
     grid-template-columns: 1fr;
