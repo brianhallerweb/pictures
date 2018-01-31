@@ -50,7 +50,7 @@ body {
     justify-items: start;
     align-items: center;
     padding: 10px 30px;
-    margin: 0px 10px 30px 0px;
+    margin-bottom: 30px;
     width: 100%;
     box-shadow: 1px 4px 6px #bdbdbd;
   }
@@ -97,6 +97,7 @@ body {
     align-items: center;
     padding: 10px 30px;
     margin-bottom: 30px;
+    width: 100%;
     box-shadow: 1px 4px 6px #bdbdbd;
   }
 
@@ -141,7 +142,7 @@ body {
     justify-items: start;
     align-items: center;
     padding: 10px 30px;
-    margin: 0px 10px 30px 0px;
+    margin-bottom: 30px;
     width: 100%;
     box-shadow: 1px 4px 6px #bdbdbd;
   }
@@ -188,7 +189,7 @@ body {
     justify-items: start;
     align-items: center;
     padding: 15px 30px;
-    margin: 0px 10px 30px 0px;
+    margin-bottom: 30px;
     width: 100%;
     box-shadow: 1px 4px 6px #bdbdbd;
   }
@@ -233,14 +234,13 @@ body {
 @media only screen and (max-width: 700px) {
   .headerGrid {
     background-color: #fff;
-    z-index: 1;
     display: grid;
     grid-template-columns: 10fr 1fr 1fr;
     grid-template-rows: auto;
     justify-items: start;
     align-items: center;
     padding: 15px 30px;
-    margin: 0px 10px 30px 0px;
+    margin-bottom: 30px;
     width: 100%;
     box-shadow: 1px 4px 6px #bdbdbd;
   }
