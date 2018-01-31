@@ -7,16 +7,18 @@ import SearchMobile from "./SearchMobile";
 class MainGrid extends Component {
   render() {
     return (
-      <div className="mainGrid">
+      <div>
         <header>
           <HeaderGrid />
         </header>
-        <section>
-          <SearchMobile />
-        </section>
-        <main>
-          <PictureGrid />
-        </main>
+        <div className="mainGrid">
+          <section>
+            <SearchMobile />
+          </section>
+          <main>
+            <PictureGrid />
+          </main>
+        </div>
       </div>
     );
   }
