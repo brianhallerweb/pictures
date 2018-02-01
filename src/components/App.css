@@ -235,7 +235,7 @@ body {
   .headerGrid {
     background-color: #fff;
     display: grid;
-    grid-template-columns: 10fr 1fr 1fr;
+    grid-template-columns: 10fr 50px 40px;
     grid-template-rows: auto;
     justify-items: start;
     align-items: center;
