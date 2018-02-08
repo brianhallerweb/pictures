@@ -9,9 +9,9 @@ const path = require("path");
 const cloudinary = require("cloudinary");
 
 cloudinary.config({
-  cloud_name: "brianhallerweb",
-  api_key: "574846749284825",
-  api_secret: "-G1krosA4aRXET_T28tOoKE6C-Y"
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 mongoose.connect(
