@@ -3,11 +3,16 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var Pics = require("../models/pics");
-
+const multer = require("multer");
 const path = require("path");
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+const vision = require("@google-cloud/vision");
+const client = new vision.ImageAnnotatorClient();
+require("dotenv").config();
 
 const cloudinary = require("cloudinary");
-
+// When this comment is gone you have return to the previous state.
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -40,18 +45,32 @@ app.get("/search/:searchString", function(req, res) {
   });
 });
 
-app.post("/pics", function(req, res) {
-  var newPic = new Pics({
-    keywords: req.body.keywords,
-    cloudinaryId: req.body.cloudinaryId
-  });
-  newPic.save(function(err, result) {
-    if (err) {
-      res.status(500).json(err);
-    } else {
-      res.json(result);
-    }
-  });
+app.post("/pics", upload.single("myImage"), function(req, res) {
+  client
+    .webDetection(req.file.buffer)
+    .then(results => {
+      const webDetection = results[0].webDetection;
+      var descriptionArray = webDetection.webEntities.map(
+        contents => contents.description
+      );
+      var descriptionString = descriptionArray.join(" ");
+
+      var newPic = new Pics({
+        keywords: descriptionString,
+        cloudinaryId: req.body.cloudinaryId
+      });
+
+      newPic.save(function(err, result) {
+        if (err) {
+          res.status(500).json(err);
+        } else {
+          res.json(result);
+        }
+      });
+    })
+    .catch(err => {
+      console.error("ERROR:", err);
+    });
 });
 
 app.delete("/delete/:id", function(req, res) {

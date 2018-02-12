@@ -23,7 +23,6 @@ class AddNewPic extends Component {
     super(props);
     this.state = {
       showModal: false,
-      keywords: "",
       myImage: ""
     };
   }
@@ -37,25 +36,24 @@ class AddNewPic extends Component {
     upload.end((err, response) => {
       if (err) {
         this.props.addErrorMessage(
-          "Your picture failed to save. Make sure your picture is a jpg or png and you have included keywords."
+          "Your picture failed to save. Make sure your picture is a jpg or png."
         );
       }
 
       if (response.body.secure_url !== "") {
+        var formData = new FormData();
+
+        formData.append("myImage", this.state.myImage);
+        formData.append("cloudinaryId", response.body.public_id);
+        console.log(formData);
         fetch("/pics", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            keywords: this.state.keywords,
-            cloudinaryId: response.body.public_id
-          })
+          body: formData
         })
           .then(response => {
             if (response.status === 500) {
               this.props.addErrorMessage(
-                "Your picture failed to save. Make sure your picture is a jpg or png and you have included keywords."
+                "Your picture failed to save. Make sure your picture is a jpg or png."
               );
             }
           })
@@ -108,16 +106,7 @@ class AddNewPic extends Component {
         <Modal show={this.state.showModal}>
           <Modal.Body>
             <form>
-              <FormGroup>
-                <ControlLabel>Keywords</ControlLabel>
-                <FormControl
-                  type="text"
-                  placeholder="Enter keywords that describe this picture"
-                  onChange={e => this.setState({ keywords: e.target.value })}
-                />
-              </FormGroup>
-
-              <ControlLabel>Picture</ControlLabel>
+              <ControlLabel>Choose Picture to Upload</ControlLabel>
               <Dropzone
                 onDrop={this.onDrop.bind(this)}
                 accept="image/jpeg, image/png"
