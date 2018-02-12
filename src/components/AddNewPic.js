@@ -45,7 +45,7 @@ class AddNewPic extends Component {
 
         formData.append("myImage", this.state.myImage);
         formData.append("cloudinaryId", response.body.public_id);
-        console.log(formData);
+
         fetch("/pics", {
           method: "POST",
           body: formData
