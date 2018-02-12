@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
-var Pics = require("../models/pics");
+var Pics = require("./models/pics");
 const multer = require("multer");
 const path = require("path");
 const storage = multer.memoryStorage();
@@ -11,17 +11,15 @@ const vision = require("@google-cloud/vision");
 const client = new vision.ImageAnnotatorClient();
 require("dotenv").config();
 
+mongoose.connect(process.env.MONGO_URI);
+
 const cloudinary = require("cloudinary");
-// When this comment is gone you have return to the previous state.
+
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
-
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/pictureGallery"
-);
 
 app.use(bodyParser.json());
 
